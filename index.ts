@@ -12,9 +12,9 @@ import { words } from './words';
   3. RUN tsc *.ts && node index.js
 */
 
-let currGuess = '*o*el'
-let orangeLetters = '*****';
-let notLetters = 'rtiafzykuvx';
+let currGuess = 's*in*'
+let orangeLetters = '*i**t';
+let notLetters = 'ureadzoywh';
 
 // ================================================================================
 
@@ -115,16 +115,17 @@ for (let word of results) {
   console.log(word);
 }
 
-let map: { [key: string]: number } = {'a': 0};
+let map: { [key: string]: number } = {};
 
 for (let word of results) {
   for (let i = 0; i < word.length; i++) {
-    if (unknown.indexOf(i) >= 0) {
-      if (map[word[i]])
-        map[word[i]]++;
-      else
-        map[word[i]] = 1;
-    }
+    if (known.indexOf(i) >= 0)
+      continue;
+
+    if (map[word[i]] == undefined)
+      map[word[i]] = 0;
+
+    map[word[i]] = map[word[i]] + 1;
   }
 }
 
@@ -149,6 +150,7 @@ for (let i = 0; i < results.length; i++) {
     maxOccurIndex = i;
   }
 }
+
 
 console.log(`Based on the frequencies of letters in this list of words,\n
 the word with the highest number of letter commonalities is ${results[maxOccurIndex]}`);
