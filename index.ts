@@ -6,11 +6,13 @@ import { words } from './words';
       ONLY ENTER LETTERS THAT ARE GREEN (KNOWN POSITION)
       ENTER * FOR ALL OTHER LETTERS, EVEN IF ORANGE
   2. ENTER ALL ORANGE LETTERS IN orangeLetters BETWEEN '' (POSITION DOES NOT MATTER)
+  3. ENTER ALL GREY LETTERS IN notLetters BETWEEN '' (POSITION DOES NOT MATTER)
   3. RUN tsc *.ts && node index.js
 */
 
-let currGuess = 'cake*'
-let orangeLetters = 's';
+let currGuess = '*o*ld'
+let orangeLetters = '';
+let notLetters = 'fightzymesxanw';
 
 // ================================================================================
 
@@ -54,7 +56,7 @@ const orangeToArr = (oranges: string): string[] => {
   return result;
 }
 
-const searchWords = (truthWord: boolean[], orangeLetters: string[]): string[] => {
+const searchWords = (truthWord: boolean[], orangeLetters: string, notLetters: string): string[] => {
     let possWords: string[] = [];
 
     for (let i = 0; i < words.length; i++) {
@@ -72,6 +74,11 @@ const searchWords = (truthWord: boolean[], orangeLetters: string[]): string[] =>
           matched = false;
       }
 
+      for (let l = 0; l < notLetters.length; l++) {
+        if (word.indexOf(notLetters[l]) >= 0)
+          matched = false;
+      }
+
       if (matched) {
         possWords.push(word);
       }
@@ -82,9 +89,8 @@ const searchWords = (truthWord: boolean[], orangeLetters: string[]): string[] =>
 
 const { known, unknown } = processInput(currGuess);
 const truthWordTable = makeTruthWord(known, unknown);
-const orgLetters = orangeToArr(orangeLetters);
 
-const results = searchWords(truthWordTable, orgLetters);
+const results = searchWords(truthWordTable, orangeLetters, notLetters);
 
 
 console.log('Possible words, based on given info:');
@@ -92,3 +98,40 @@ console.log('Possible words, based on given info:');
 for (let word of results) {
   console.log(word);
 }
+
+// TODO: get stats about results, like the most common letters and bet words to guess based on that
+
+// solution: create your own hashmap, using letter's char value as key and update number of occurrences (charCodeAt(i))
+
+let map: { [key: string]: number } = {'a': 0};
+
+for (let word of results) {
+  for (let i = 0; i < word.length; i++) {
+    if (unknown.indexOf(i) >= 0) {
+      if (map[word[i]])
+        map[word[i]]++;
+      else
+        map[word[i]] = 1;
+    }
+  }
+}
+
+let maxOccurIndex = 0;
+let maxOccurs = 0;
+
+for (let i = 0; i < results.length; i++) {
+  const word = results[i];
+  let numOccurs = 0;
+
+  for (let j = 0; j < word.length; j++) {
+    numOccurs += map[word[j]];
+  }
+
+  if (numOccurs > maxOccurs) {
+    maxOccurIndex = numOccurs;
+    maxOccurIndex = i;
+  }
+}
+
+console.log(`Based on the frequencies of letters in this list of words,\n
+the word with the highest number of letter commonalities is ${results[maxOccurIndex]}`);
