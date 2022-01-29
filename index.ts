@@ -5,14 +5,16 @@ import { words } from './words';
   1. ENTER YOUR CURRENT GUESS FOR currGuess BETWEEN ''
       ONLY ENTER LETTERS THAT ARE GREEN (KNOWN POSITION)
       ENTER * FOR ALL OTHER LETTERS, EVEN IF ORANGE
-  2. ENTER ALL ORANGE LETTERS IN orangeLetters BETWEEN '' (POSITION DOES NOT MATTER)
+  2. ENTER ALL ORANGE LETTERS IN orangeLetters BETWEEN ''
+      POSITION DOES MATTER
+      ENTER * FOR NON ORANGE LETTERS (INCLUDING GREEN)
   3. ENTER ALL GREY LETTERS IN notLetters BETWEEN '' (POSITION DOES NOT MATTER)
   3. RUN tsc *.ts && node index.js
 */
 
-let currGuess = '*o*ld'
-let orangeLetters = '';
-let notLetters = 'fightzymesxanw';
+let currGuess = '*o*el'
+let orangeLetters = '*****';
+let notLetters = 'rtiafzykuvx';
 
 // ================================================================================
 
@@ -64,19 +66,33 @@ const searchWords = (truthWord: boolean[], orangeLetters: string, notLetters: st
       const word = words[i];
 
       for (let j = 0; j < 5; j++) {
+
+        // Check if a green letter doesn't match up
         if (truthWord[j] && word[j] != currGuess[j]) {
           matched = false;
         }
       }
 
-      for (let k = 0; k < orangeLetters.length; k++) {
-        if (word.indexOf(orangeLetters[k]) < 0)
-          matched = false;
-      }
+      // Only do further checks if necessary
+      if (matched) {
 
-      for (let l = 0; l < notLetters.length; l++) {
-        if (word.indexOf(notLetters[l]) >= 0)
-          matched = false;
+        // If it has a grey letter, throw it out
+        for (let l = 0; l < notLetters.length; l++) {
+          if (word.indexOf(notLetters[l]) >= 0)
+            matched = false;
+        }
+
+        if (matched) {
+
+          // If it DOESNT have an orange letter, throw it out
+          for (let k = 0; k < orangeLetters.length; k++) {
+            if (orangeLetters[k] != '*' && word.indexOf(orangeLetters[k]) < 0)
+              matched = false;
+            else if (orangeLetters[k] != '*' && word[k] == orangeLetters[k]) {
+              matched = false;
+            }
+          }
+        }
       }
 
       if (matched) {
@@ -99,10 +115,6 @@ for (let word of results) {
   console.log(word);
 }
 
-// TODO: get stats about results, like the most common letters and bet words to guess based on that
-
-// solution: create your own hashmap, using letter's char value as key and update number of occurrences (charCodeAt(i))
-
 let map: { [key: string]: number } = {'a': 0};
 
 for (let word of results) {
@@ -121,10 +133,15 @@ let maxOccurs = 0;
 
 for (let i = 0; i < results.length; i++) {
   const word = results[i];
+  let usedLetters: string[] = [];
   let numOccurs = 0;
 
   for (let j = 0; j < word.length; j++) {
+    if (usedLetters.indexOf(word[j]) >= 0)
+      continue;
+
     numOccurs += map[word[j]];
+    usedLetters.push(word[j]);
   }
 
   if (numOccurs > maxOccurs) {
