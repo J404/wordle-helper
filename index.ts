@@ -13,9 +13,9 @@ import fetch from 'node-fetch';
   3. RUN tsc *.ts && node index.js
 */
 
-let currGuess = '*is*y';
-let orangeLetters = '*****';
-let notLetters = 'fegnltark';
+let currGuess = '*e*t*';
+let orangeLetters = 'a***a';
+let notLetters = 'dlros';
 
 // ================================================================================
 
