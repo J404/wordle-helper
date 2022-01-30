@@ -13,9 +13,9 @@ import fetch from 'node-fetch';
   3. RUN tsc *.ts && node index.js
 */
 
-let currGuess = 's*in*';
-let orangeLetters = '*i**t';
-let notLetters = 'ureadzoywh';
+let currGuess = '*is*y';
+let orangeLetters = '*****';
+let notLetters = 'fegnltark';
 
 // ================================================================================
 
@@ -140,7 +140,7 @@ for (let i = 0; i < results.length; i++) {
   }
 
   if (numOccurs > maxOccurs) {
-    maxOccurIndex = numOccurs;
+    maxOccurs = numOccurs;
     maxOccurIndex = i;
   }
 }
@@ -174,11 +174,12 @@ const checkAllResults = async () => {
     }
   }
 
-  console.log(`Most commonly used word of the results 
-  in normal English: ${results[maxFreqIndex]}`);
+  console.log(`Most commonly used word of the results in normal English: ${results[maxFreqIndex]}`);
 }
 
 
-console.log(`Based on the frequencies of letters in this list of words,\n
-the word with the highest number of letter commonalities is ${results[maxOccurIndex]}`);
-checkAllResults();
+console.log(`Based on the frequencies of letters in this list of words, the word with the highest number of letter commonalities is: ${results[maxOccurIndex]}`);
+console.log(maxOccurs);
+
+if (results.length < 40) 
+  checkAllResults();
