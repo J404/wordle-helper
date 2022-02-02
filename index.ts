@@ -13,11 +13,19 @@ import fetch from 'node-fetch';
   3. RUN tsc *.ts && node index.js
 */
 
-let currGuess = '*e*t*';
-let orangeLetters = 'a***a';
-let notLetters = 'dlros';
+let currGuess = '*o***';
+let orangeLetters = 't***s';
+let notLetters = 'earfund';
 
 // ================================================================================
+
+
+// Detect if there are CLI arguments, and use those if so
+if (process.argv.length > 2) {
+  currGuess = process.argv[2];
+  orangeLetters = process.argv[3];
+  notLetters = process.argv[4];
+}
 
 currGuess = currGuess.toLowerCase();
 orangeLetters = orangeLetters.toLowerCase();
