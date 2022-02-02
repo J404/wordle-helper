@@ -19,6 +19,7 @@
   "homepage": "https://github.com/J404/wordle-helper#readme",
   "dependencies": {
     "@types/node": "^17.0.13",
+    "@types/node-fetch": "^3.0.3",
     "node-fetch": "^2.6.7"
   }
 }
