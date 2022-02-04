@@ -27,6 +27,9 @@ var app = (function () {
     function is_empty(obj) {
         return Object.keys(obj).length === 0;
     }
+    function append(target, node) {
+        target.appendChild(node);
+    }
     function insert(target, node, anchor) {
         target.insertBefore(node, anchor || null);
     }
@@ -285,6 +288,10 @@ var app = (function () {
 
     function dispatch_dev(type, detail) {
         document.dispatchEvent(custom_event(type, Object.assign({ version: '3.46.4' }, detail), true));
+    }
+    function append_dev(target, node) {
+        dispatch_dev('SvelteDOMInsert', { target, node });
+        append(target, node);
     }
     function insert_dev(target, node, anchor) {
         dispatch_dev('SvelteDOMInsert', { target, node, anchor });
@@ -13454,62 +13461,123 @@ var app = (function () {
     const file = "src\\App.svelte";
 
     function create_fragment(ctx) {
+    	let main;
     	let h1;
     	let t1;
-    	let input0;
-    	let t2;
-    	let input1;
+    	let div3;
+    	let div0;
+    	let span0;
     	let t3;
-    	let input2;
+    	let input0;
     	let t4;
+    	let div1;
+    	let span1;
+    	let t6;
+    	let input1;
+    	let t7;
+    	let div2;
+    	let span2;
+    	let t9;
+    	let input2;
+    	let t10;
     	let button;
     	let mounted;
     	let dispose;
 
     	const block = {
     		c: function create() {
+    			main = element("main");
     			h1 = element("h1");
     			h1.textContent = "wordlde thing";
     			t1 = space();
-    			input0 = element("input");
-    			t2 = space();
-    			input1 = element("input");
+    			div3 = element("div");
+    			div0 = element("div");
+    			span0 = element("span");
+    			span0.textContent = "green letters";
     			t3 = space();
-    			input2 = element("input");
+    			input0 = element("input");
     			t4 = space();
+    			div1 = element("div");
+    			span1 = element("span");
+    			span1.textContent = "orange letters";
+    			t6 = space();
+    			input1 = element("input");
+    			t7 = space();
+    			div2 = element("div");
+    			span2 = element("span");
+    			span2.textContent = "greyed letters";
+    			t9 = space();
+    			input2 = element("input");
+    			t10 = space();
     			button = element("button");
     			button.textContent = "Solve";
-    			add_location(h1, file, 10, 0, 230);
-    			attr_dev(input0, "placeholder", "green letters");
-    			add_location(input0, file, 12, 0, 256);
-    			attr_dev(input1, "placeholder", "orange letters");
-    			add_location(input1, file, 13, 0, 316);
-    			attr_dev(input2, "placeholder", "not letters");
-    			add_location(input2, file, 14, 0, 381);
-    			add_location(button, file, 16, 0, 442);
+    			add_location(h1, file, 18, 4, 525);
+    			attr_dev(span0, "class", "green-in");
+    			add_location(span0, file, 22, 12, 620);
+    			attr_dev(input0, "class", "green-in svelte-9qvf64");
+    			attr_dev(input0, "placeholder", "ex. *o**s");
+    			add_location(input0, file, 23, 12, 677);
+    			attr_dev(div0, "id", "green-letters");
+    			attr_dev(div0, "class", "svelte-9qvf64");
+    			add_location(div0, file, 21, 8, 582);
+    			attr_dev(span1, "class", "orange-in");
+    			add_location(span1, file, 26, 12, 813);
+    			attr_dev(input1, "class", "orange-in svelte-9qvf64");
+    			attr_dev(input1, "placeholder", "ex. t**s*");
+    			add_location(input1, file, 27, 12, 872);
+    			attr_dev(div1, "id", "orange-letters");
+    			attr_dev(div1, "class", "svelte-9qvf64");
+    			add_location(div1, file, 25, 8, 774);
+    			attr_dev(span2, "class", "grey-in");
+    			add_location(span2, file, 30, 12, 1010);
+    			attr_dev(input2, "class", "grey-in svelte-9qvf64");
+    			attr_dev(input2, "placeholder", "ex. ghvab");
+    			add_location(input2, file, 31, 12, 1067);
+    			attr_dev(div2, "id", "not-letters");
+    			attr_dev(div2, "class", "svelte-9qvf64");
+    			add_location(div2, file, 29, 8, 974);
+    			attr_dev(div3, "id", "inputs");
+    			attr_dev(div3, "class", "svelte-9qvf64");
+    			add_location(div3, file, 20, 4, 555);
+    			attr_dev(button, "class", "svelte-9qvf64");
+    			add_location(button, file, 40, 4, 1319);
+    			attr_dev(main, "class", "svelte-9qvf64");
+    			add_location(main, file, 17, 0, 513);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, h1, anchor);
-    			insert_dev(target, t1, anchor);
-    			insert_dev(target, input0, anchor);
+    			insert_dev(target, main, anchor);
+    			append_dev(main, h1);
+    			append_dev(main, t1);
+    			append_dev(main, div3);
+    			append_dev(div3, div0);
+    			append_dev(div0, span0);
+    			append_dev(div0, t3);
+    			append_dev(div0, input0);
     			set_input_value(input0, /*currGuess*/ ctx[0]);
-    			insert_dev(target, t2, anchor);
-    			insert_dev(target, input1, anchor);
+    			append_dev(div3, t4);
+    			append_dev(div3, div1);
+    			append_dev(div1, span1);
+    			append_dev(div1, t6);
+    			append_dev(div1, input1);
     			set_input_value(input1, /*orangeLetters*/ ctx[1]);
-    			insert_dev(target, t3, anchor);
-    			insert_dev(target, input2, anchor);
+    			append_dev(div3, t7);
+    			append_dev(div3, div2);
+    			append_dev(div2, span2);
+    			append_dev(div2, t9);
+    			append_dev(div2, input2);
     			set_input_value(input2, /*notLetters*/ ctx[2]);
-    			insert_dev(target, t4, anchor);
-    			insert_dev(target, button, anchor);
+    			append_dev(main, t10);
+    			append_dev(main, button);
 
     			if (!mounted) {
     				dispose = [
     					listen_dev(input0, "input", /*input0_input_handler*/ ctx[4]),
     					listen_dev(input1, "input", /*input1_input_handler*/ ctx[5]),
     					listen_dev(input2, "input", /*input2_input_handler*/ ctx[6]),
+    					listen_dev(input2, "keyup", /*keyup_handler*/ ctx[7], false, false, false),
     					listen_dev(button, "click", /*runSolver*/ ctx[3], false, false, false)
     				];
 
@@ -13532,15 +13600,7 @@ var app = (function () {
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(h1);
-    			if (detaching) detach_dev(t1);
-    			if (detaching) detach_dev(input0);
-    			if (detaching) detach_dev(t2);
-    			if (detaching) detach_dev(input1);
-    			if (detaching) detach_dev(t3);
-    			if (detaching) detach_dev(input2);
-    			if (detaching) detach_dev(t4);
-    			if (detaching) detach_dev(button);
+    			if (detaching) detach_dev(main);
     			mounted = false;
     			run_all(dispose);
     		}
@@ -13565,6 +13625,18 @@ var app = (function () {
     	let { notLetters } = $$props;
 
     	function runSolver() {
+    		let inputs = [currGuess, orangeLetters, notLetters];
+
+    		inputs.reduce((acc, curr, i) => {
+    			inputs[i] = curr.toLowerCase().trim();
+
+    			if (inputs[i] == '' || inputs[i].length > 5) {
+    				alert('Invalid input');
+    			}
+
+    			return inputs[i];
+    		});
+
     		solveWordle(currGuess, orangeLetters, notLetters);
     	}
 
@@ -13588,6 +13660,12 @@ var app = (function () {
     		notLetters = this.value;
     		$$invalidate(2, notLetters);
     	}
+
+    	const keyup_handler = key => {
+    		if (key.key == 'Enter') {
+    			runSolver();
+    		}
+    	};
 
     	$$self.$$set = $$props => {
     		if ('currGuess' in $$props) $$invalidate(0, currGuess = $$props.currGuess);
@@ -13620,7 +13698,8 @@ var app = (function () {
     		runSolver,
     		input0_input_handler,
     		input1_input_handler,
-    		input2_input_handler
+    		input2_input_handler,
+    		keyup_handler
     	];
     }
 
