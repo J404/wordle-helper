@@ -11,7 +11,7 @@
 </script>
 
 
-<h1>wordlde thing</h1>
+<h1>wordle thing</h1>
 
 <input bind:value={currGuess} placeholder="green letters">
 <input bind:value={orangeLetters} placeholder="orange letters">
