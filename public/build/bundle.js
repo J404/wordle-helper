@@ -45,6 +45,9 @@ var app = (function () {
     function space() {
         return text(' ');
     }
+    function empty() {
+        return text('');
+    }
     function listen(node, event, handler, options) {
         node.addEventListener(event, handler, options);
         return () => node.removeEventListener(event, handler, options);
@@ -13482,7 +13485,7 @@ var app = (function () {
     const { console: console_1 } = globals;
     const file = "src\\App.svelte";
 
-    // (49:4) {#if invalidInput}
+    // (50:8) {#if invalidInput}
     function create_if_block_3(ctx) {
     	let p;
 
@@ -13490,7 +13493,8 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "Invalid input: try again";
-    			add_location(p, file, 49, 8, 1619);
+    			attr_dev(p, "class", "error svelte-1h5tcpe");
+    			add_location(p, file, 50, 12, 1651);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -13504,35 +13508,46 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(49:4) {#if invalidInput}",
+    		source: "(50:8) {#if invalidInput}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (60:22) 
+    // (59:26) 
     function create_if_block_2(ctx) {
-    	let div;
     	let p;
+    	let t0;
+    	let br0;
+    	let t1;
+    	let br1;
+    	let t2;
 
     	const block = {
     		c: function create() {
-    			div = element("div");
     			p = element("p");
-    			p.textContent = "No results: make sure the input is entered correctly.\r\n                Make sure there are no repeats in the green letters category and the grey letters category.\r\n                If you're sure that it's entered correctly, then kindly stop breaking my thing.";
-    			add_location(p, file, 61, 12, 1957);
-    			attr_dev(div, "id", "results");
-    			attr_dev(div, "class", "svelte-gtr782");
-    			add_location(div, file, 60, 8, 1925);
+    			t0 = text("No results: make sure the input is entered correctly.");
+    			br0 = element("br");
+    			t1 = text("\r\n                Make sure there are no repeats in the green letters category and the grey letters category.");
+    			br1 = element("br");
+    			t2 = text("\r\n                If you're sure that it's entered correctly, then kindly stop breaking my thing.");
+    			add_location(br0, file, 60, 69, 2029);
+    			add_location(br1, file, 61, 107, 2142);
+    			attr_dev(p, "class", "warning svelte-1h5tcpe");
+    			add_location(p, file, 59, 12, 1939);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, p);
+    			insert_dev(target, p, anchor);
+    			append_dev(p, t0);
+    			append_dev(p, br0);
+    			append_dev(p, t1);
+    			append_dev(p, br1);
+    			append_dev(p, t2);
     		},
     		p: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
+    			if (detaching) detach_dev(p);
     		}
     	};
 
@@ -13540,42 +13555,39 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(60:22) ",
+    		source: "(59:26) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (53:4) {#if result1}
+    // (54:8) {#if result1}
     function create_if_block(ctx) {
-    	let div;
     	let p;
     	let t0;
     	let t1;
     	let t2;
+    	let if_block_anchor;
     	let if_block = /*result2*/ ctx[4] && create_if_block_1(ctx);
 
     	const block = {
     		c: function create() {
-    			div = element("div");
     			p = element("p");
     			t0 = text("Most letter combinations: ");
     			t1 = text(/*result1*/ ctx[3]);
     			t2 = space();
     			if (if_block) if_block.c();
-    			add_location(p, file, 54, 12, 1728);
-    			attr_dev(div, "id", "results");
-    			attr_dev(div, "class", "svelte-gtr782");
-    			add_location(div, file, 53, 8, 1696);
+    			if_block_anchor = empty();
+    			add_location(p, file, 54, 12, 1750);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, p);
+    			insert_dev(target, p, anchor);
     			append_dev(p, t0);
     			append_dev(p, t1);
-    			append_dev(div, t2);
-    			if (if_block) if_block.m(div, null);
+    			insert_dev(target, t2, anchor);
+    			if (if_block) if_block.m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
     			if (dirty & /*result1*/ 8) set_data_dev(t1, /*result1*/ ctx[3]);
@@ -13586,7 +13598,7 @@ var app = (function () {
     				} else {
     					if_block = create_if_block_1(ctx);
     					if_block.c();
-    					if_block.m(div, null);
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
     				}
     			} else if (if_block) {
     				if_block.d(1);
@@ -13594,8 +13606,10 @@ var app = (function () {
     			}
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
-    			if (if_block) if_block.d();
+    			if (detaching) detach_dev(p);
+    			if (detaching) detach_dev(t2);
+    			if (if_block) if_block.d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
     		}
     	};
 
@@ -13603,7 +13617,7 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(53:4) {#if result1}",
+    		source: "(54:8) {#if result1}",
     		ctx
     	});
 
@@ -13621,7 +13635,7 @@ var app = (function () {
     			p = element("p");
     			t0 = text("Most commonly used word: ");
     			t1 = text(/*result2*/ ctx[4]);
-    			add_location(p, file, 56, 16, 1815);
+    			add_location(p, file, 56, 16, 1837);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -13669,6 +13683,7 @@ var app = (function () {
     	let t10;
     	let button;
     	let t12;
+    	let div4;
     	let t13;
     	let mounted;
     	let dispose;
@@ -13686,7 +13701,7 @@ var app = (function () {
     		c: function create() {
     			main = element("main");
     			h1 = element("h1");
-    			h1.textContent = "wordlde thing";
+    			h1.textContent = "wordle helper";
     			t1 = space();
     			div3 = element("div");
     			div0 = element("div");
@@ -13710,40 +13725,44 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "solve";
     			t12 = space();
+    			div4 = element("div");
     			if (if_block0) if_block0.c();
     			t13 = space();
     			if (if_block1) if_block1.c();
     			add_location(h1, file, 24, 4, 746);
     			attr_dev(span0, "class", "green-in");
     			add_location(span0, file, 28, 12, 841);
-    			attr_dev(input0, "class", "green-in svelte-gtr782");
+    			attr_dev(input0, "class", "green-in svelte-1h5tcpe");
     			attr_dev(input0, "placeholder", "ex. *o**s");
     			add_location(input0, file, 29, 12, 898);
     			attr_dev(div0, "id", "green-letters");
-    			attr_dev(div0, "class", "svelte-gtr782");
+    			attr_dev(div0, "class", "svelte-1h5tcpe");
     			add_location(div0, file, 27, 8, 803);
     			attr_dev(span1, "class", "orange-in");
     			add_location(span1, file, 32, 12, 1034);
-    			attr_dev(input1, "class", "orange-in svelte-gtr782");
+    			attr_dev(input1, "class", "orange-in svelte-1h5tcpe");
     			attr_dev(input1, "placeholder", "ex. t**s*");
     			add_location(input1, file, 33, 12, 1093);
     			attr_dev(div1, "id", "orange-letters");
-    			attr_dev(div1, "class", "svelte-gtr782");
+    			attr_dev(div1, "class", "svelte-1h5tcpe");
     			add_location(div1, file, 31, 8, 995);
     			attr_dev(span2, "class", "grey-in");
     			add_location(span2, file, 36, 12, 1231);
-    			attr_dev(input2, "class", "grey-in svelte-gtr782");
+    			attr_dev(input2, "class", "grey-in svelte-1h5tcpe");
     			attr_dev(input2, "placeholder", "ex. ghvab");
     			add_location(input2, file, 37, 12, 1288);
     			attr_dev(div2, "id", "not-letters");
-    			attr_dev(div2, "class", "svelte-gtr782");
+    			attr_dev(div2, "class", "svelte-1h5tcpe");
     			add_location(div2, file, 35, 8, 1195);
     			attr_dev(div3, "id", "inputs");
-    			attr_dev(div3, "class", "svelte-gtr782");
+    			attr_dev(div3, "class", "svelte-1h5tcpe");
     			add_location(div3, file, 26, 4, 776);
-    			attr_dev(button, "class", "svelte-gtr782");
+    			attr_dev(button, "class", "svelte-1h5tcpe");
     			add_location(button, file, 46, 4, 1540);
-    			attr_dev(main, "class", "svelte-gtr782");
+    			attr_dev(div4, "id", "results");
+    			attr_dev(div4, "class", "svelte-1h5tcpe");
+    			add_location(div4, file, 48, 4, 1591);
+    			attr_dev(main, "class", "svelte-1h5tcpe");
     			add_location(main, file, 23, 0, 734);
     		},
     		l: function claim(nodes) {
@@ -13774,9 +13793,10 @@ var app = (function () {
     			append_dev(main, t10);
     			append_dev(main, button);
     			append_dev(main, t12);
-    			if (if_block0) if_block0.m(main, null);
-    			append_dev(main, t13);
-    			if (if_block1) if_block1.m(main, null);
+    			append_dev(main, div4);
+    			if (if_block0) if_block0.m(div4, null);
+    			append_dev(div4, t13);
+    			if (if_block1) if_block1.m(div4, null);
 
     			if (!mounted) {
     				dispose = [
@@ -13807,7 +13827,7 @@ var app = (function () {
     				if (if_block0) ; else {
     					if_block0 = create_if_block_3(ctx);
     					if_block0.c();
-    					if_block0.m(main, t13);
+    					if_block0.m(div4, t13);
     				}
     			} else if (if_block0) {
     				if_block0.d(1);
@@ -13822,7 +13842,7 @@ var app = (function () {
 
     				if (if_block1) {
     					if_block1.c();
-    					if_block1.m(main, null);
+    					if_block1.m(div4, null);
     				}
     			}
     		},

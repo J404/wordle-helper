@@ -32,7 +32,7 @@
 </script>
 
 <main>
-    <h1>wordlde thing</h1>
+    <h1>wordle helper</h1>
 
     <div id="inputs">
         <div id="green-letters">
@@ -56,31 +56,45 @@
 
     <button on:click={runSolver}>solve</button>
 
-    {#if invalidInput}
-        <p>Invalid input: try again</p>
-    {/if}
-    
-    {#if result1}
-        <div id="results">
+    <div id="results">
+        {#if invalidInput}
+            <p class="error">Invalid input: try again</p>
+        {/if}
+
+        {#if result1}
             <p>Most letter combinations: {result1}</p>
             {#if result2}
                 <p>Most commonly used word: {result2}</p>
             {/if}
-        </div>
-    {:else if ranOnce}
-        <div id="results">
-            <p>
-                No results: make sure the input is entered correctly.
-                Make sure there are no repeats in the green letters category and the grey letters category.
+        {:else if ranOnce}
+            <p class="warning">
+                No results: make sure the input is entered correctly.<br>
+                Make sure there are no repeats in the green letters category and the grey letters category.<br>
                 If you're sure that it's entered correctly, then kindly stop breaking my thing.
             </p>
-        </div>
-    {/if}
+        {/if}
+    </div>
 </main>
 
 <style>
     main {
         font-size: 1.25rem;
+    }
+
+    .error, .warning {
+        color: white;
+        padding: 0.5rem;
+        width: fit-content;
+        border-radius: 0.5rem;
+        border: none;
+    }
+
+    .error {
+        background-color: rgb(197, 14, 14);
+    }
+
+    .warning {
+        background-color: rgb(216, 160, 8);
     }
 
     div#inputs {
@@ -107,7 +121,13 @@
     }
 
     div#results {
-        width: 50%;
+        width: 50vw;
+    }
+
+    @media only screen and (max-width: 600px) {
+        div#results {
+            width: 95vw;
+        }
     }
 
     button {
