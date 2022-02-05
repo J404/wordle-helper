@@ -100,7 +100,9 @@ const searchWords = (
   return possWords;
 };
 
-export const solveWordle = (currGuess: string, orangeLetters: string, notLetters: string) => {
+export const solveWordle = 
+  async (currGuess: string, orangeLetters: string, notLetters: string):
+  Promise<{ result1: string; result2?: string; }> => {
   const { known, unknown } = processInput(currGuess);
   const truthWordTable = makeTruthWord(known, unknown);
 
@@ -160,7 +162,7 @@ export const solveWordle = (currGuess: string, orangeLetters: string, notLetters
     return freq;
   };
 
-  const checkAllResults = async () => {
+  const checkAllResults = async (): Promise<string> => {
     let maxFreq = 0;
     let maxFreqIndex = 0;
 
@@ -175,14 +177,21 @@ export const solveWordle = (currGuess: string, orangeLetters: string, notLetters
       }
     }
 
-    alert(`Most commonly used word of the results in normal English: ${results[maxFreqIndex]}`);
+    return results[maxFreqIndex];
+    //alert(`Most commonly used word of the results in normal English: ${results[maxFreqIndex]}`);
   }
 
 
-  alert(`Based on the frequencies of letters in this list of words, the word with the highest number of letter commonalities is: ${results[maxOccurIndex]}`);
+  const result1 = results[maxOccurIndex];
+  //alert(`Based on the frequencies of letters in this list of words, the word with the highest number of letter commonalities is: ${results[maxOccurIndex]}`);
   console.log(maxOccurs);
 
-  if (results.length < 40) 
-    checkAllResults();
+  if (results.length < 40) {
+    const result2 = await checkAllResults();
+
+    return { result1, result2 };
+  } else {
+    return { result1, result2: null };
+  }
 
 }

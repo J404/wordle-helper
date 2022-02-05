@@ -5,20 +5,29 @@
     export let orangeLetters: string;
     export let notLetters: string;
 
-    function runSolver() {
+    export let result1: string, result2: string;
+
+    export let ranOnce = false;
+    export let invalidInput = false;
+
+    async function runSolver() {
+        ranOnce = true;
+        invalidInput = false;
+
         let inputs = [ currGuess, orangeLetters, notLetters ];
 
         inputs.reduce((acc, curr, i) => {
             inputs[i] = curr.toLowerCase().trim();
 
-            if (inputs[i] == '' || inputs[i].length > 5) {
-                alert('Invalid input');
+            if (inputs[i] == '' || inputs[i].length > 5 && i != 2) {
+                invalidInput = true;
             }
 
             return inputs[i];
         });
 
-        solveWordle(currGuess, orangeLetters, notLetters);
+        ({ result1, result2 } = await solveWordle(currGuess, orangeLetters, notLetters));
+        console.log(result1, result2);
     }
 </script>
 
@@ -45,7 +54,28 @@
         </div>
     </div>
 
-    <button on:click={runSolver}>Solve</button>
+    <button on:click={runSolver}>solve</button>
+
+    {#if invalidInput}
+        <p>Invalid input: try again</p>
+    {/if}
+    
+    {#if result1}
+        <div id="results">
+            <p>Most letter combinations: {result1}</p>
+            {#if result2}
+                <p>Most commonly used word: {result2}</p>
+            {/if}
+        </div>
+    {:else if ranOnce}
+        <div id="results">
+            <p>
+                No results: make sure the input is entered correctly.
+                Make sure there are no repeats in the green letters category and the grey letters category.
+                If you're sure that it's entered correctly, then kindly stop breaking my thing.
+            </p>
+        </div>
+    {/if}
 </main>
 
 <style>
@@ -76,16 +106,31 @@
         color: #3a3a3c;
     }
 
+    div#results {
+        width: 50%;
+    }
+
     button {
         padding: 0.5rem;
+        padding-left: 0.75rem;
+        padding-right: 0.72rem;
         border-radius: 1rem;
         outline: none;
+        border: 2px solid black;
+        background-color: white;
+        color: black;
+
+        transition: border-width 0.25s ease-in-out;
+    }
+
+    button:active, button:hover {
+        border-width: 3px;
     }
 
     input {
         padding: 0.5rem;
         border-radius: 1rem;
-        transition: border 0.5s ease-in-out;
+        transition: border 0.25s ease-in-out;
         outline: none;
     }
 

@@ -3,7 +3,11 @@ import App from './App.svelte';
 const app = new App({
 	target: document.body,
 	props: {
-		name: 'world'
+		currGuess: '',
+		orangeLetters: '',
+		notLetters: '',
+		result1: null,
+		result2: null,
 	}
 });
 
