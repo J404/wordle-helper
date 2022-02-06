@@ -69,7 +69,7 @@
         {:else if ranOnce}
             <p class="warning">
                 No results: make sure the input is entered correctly.<br>
-                Make sure there are no repeats in the green letters category and the grey letters category.<br>
+                Make sure there are NO repeats between the green or orange letters and the grey letters.<br>
                 If you're sure that it's entered correctly, then kindly stop breaking my thing.
             </p>
         {/if}
