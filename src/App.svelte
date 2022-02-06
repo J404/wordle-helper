@@ -1,4 +1,6 @@
 <script lang="ts">
+    import Loader from './Loader.svelte';
+
     import { solveWordle } from './index';
 
     export let currGuess: string;
@@ -10,11 +12,15 @@
     export let ranOnce = false;
     export let invalidInput = false;
 
+    let loading = false;
+
     async function runSolver() {
         ranOnce = true;
         invalidInput = false;
 
         let inputs = [ currGuess, orangeLetters, notLetters ];
+
+        loading = true;
 
         inputs.reduce((acc, curr, i) => {
             inputs[i] = curr.toLowerCase().trim();
@@ -28,6 +34,8 @@
 
         ({ result1, result2 } = await solveWordle(currGuess, orangeLetters, notLetters));
         console.log(result1, result2);
+        
+        loading = false;
     }
 </script>
 
@@ -55,6 +63,8 @@
     </div>
 
     <button on:click={runSolver}>solve</button>
+
+    <Loader loading={loading}/>
 
     <div id="results">
         {#if invalidInput}
